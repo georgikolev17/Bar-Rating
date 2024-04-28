@@ -13,5 +13,6 @@ namespace Bar_Rating.Data
 
         public DbSet<Bar> Bars { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Bar_Rating.Models.DummyUser>? DummyUser { get; set; }
     }
 }
