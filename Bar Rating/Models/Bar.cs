@@ -26,9 +26,9 @@ namespace Bar_Rating.Models
         [MaxLength(255)]
         public string Description { get; set; }
 
-        // 2048 bytes = 2 mb
+        // 2097152 bytes = 2 mb
         [Required]
-        [MaxLength(2048)]
+        [MaxLength(2097152)]
         public byte[] BarImage { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }

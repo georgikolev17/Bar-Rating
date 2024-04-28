@@ -23,6 +23,6 @@ namespace Bar_Rating.Models
         [Required]
         [Display(Name = "Image")]
         [BindProperty]
-        public HttpPostedFile BarImage { get; set; }
+        public IFormFile BarImage { get; set; }
     }
 }

@@ -56,9 +56,9 @@ namespace Bar_Rating.Controllers
         // POST: Bars/Create
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdminRoleName)]
-        public async Task<IActionResult> Create(IFormFile BarImage, string name, string description)
+        public async Task<IActionResult> Create(BarViewModel _bar)
         {
-            /*using var stream = new MemoryStream();
+            using var stream = new MemoryStream();
             _bar.BarImage.CopyTo(stream);
             byte[] bytes = stream.ToArray();
 
@@ -68,8 +68,8 @@ namespace Bar_Rating.Controllers
                 _context.Add(bar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }*/
-            return View();
+            }
+            return View(bar);
         }
 
         // GET: Bars/Edit/5
