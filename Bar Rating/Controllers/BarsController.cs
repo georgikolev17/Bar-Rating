@@ -86,29 +86,39 @@ namespace Bar_Rating.Controllers
             {
                 return NotFound();
             }
-            return View(bar);
+            var stream = new MemoryStream(bar.BarImage);
+            var file = new FormFile(stream, 0, bar.BarImage.Length, bar.Name, bar.Name);
+
+            var _bar = new BarViewModel
+            {
+                Id = bar.Id,
+                Name = bar.Name,
+                Description = bar.Description,
+                BarImage = file,
+            };
+            return View(_bar);
         }
 
         // POST: Bars/Edit/5
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdminRoleName)]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,BarImage")] Bar bar)
+        public async Task<IActionResult> Edit(int id, BarViewModel bar)
         {
-            if (id != bar.Id)
-            {
-                return NotFound();
-            }
+            using var stream = new MemoryStream();
+            bar.BarImage.CopyTo(stream);
+            byte[] bytes = stream.ToArray();
 
+            Bar _bar = new Bar(bar.Name, bar.Description, bytes);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(bar);
+                    _context.Update(_bar);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BarExists(bar.Id))
+                    if (!BarExists(id))
                     {
                         return NotFound();
                     }

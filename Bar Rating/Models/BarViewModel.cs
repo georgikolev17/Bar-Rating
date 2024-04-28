@@ -9,6 +9,7 @@ namespace Bar_Rating.Models
         public BarViewModel()
         {
         }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(64)]
